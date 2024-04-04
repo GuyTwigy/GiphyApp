@@ -110,10 +110,10 @@ extension ImageSource {
 		return timestamp / totalDuration
 	}
 	
-	public var preferredFramesPerSecond: Int {
-		guard let shortestDelayTime = (0..<count).map({ (self.properties(at: $0).delayTime ?? 0) }).min() else { return 1 }
-		return Int(ceil(1 / shortestDelayTime))
-	}
+    public var preferredFramesPerSecond: Int {
+        guard let shortestDelayTime = (0..<count).map({ (self.properties(at: $0).delayTime ?? 0) }).min(), shortestDelayTime > 0 else { return 1 }
+        return Int(ceil(1 / shortestDelayTime))
+    }
 	
 	public func animationFrame(at timestamp: TimeInterval) -> Int {
 		guard self.count > 1, !self.totalDuration.isZero else { return 0 }

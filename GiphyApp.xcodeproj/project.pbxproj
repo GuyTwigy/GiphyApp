@@ -16,12 +16,13 @@
 		9D98B8AC2BBE972300D70BA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D98B8AA2BBE972300D70BA3 /* LaunchScreen.storyboard */; };
 		9D98B8B42BBE9D0100D70BA3 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8B32BBE9D0100D70BA3 /* MainVM.swift */; };
 		9D98B8B82BBEC13300D70BA3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8B72BBEC13300D70BA3 /* UIViewExtension.swift */; };
-		9D98B8BB2BBEC49100D70BA3 /* GifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8B92BBEC49100D70BA3 /* GifCell.swift */; };
-		9D98B8BC2BBEC49100D70BA3 /* GifCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D98B8BA2BBEC49100D70BA3 /* GifCell.xib */; };
 		9D98B8C02BBEC83800D70BA3 /* GifData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8BF2BBEC83800D70BA3 /* GifData.swift */; };
 		9D98B8C32BBECE2B00D70BA3 /* ErrorHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8C22BBECE2B00D70BA3 /* ErrorHandlers.swift */; };
 		9D98B8C62BBECE4800D70BA3 /* NetworkBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8C52BBECE4800D70BA3 /* NetworkBuilder.swift */; };
 		9D98B8C92BBECE6B00D70BA3 /* NetworkManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8C82BBECE6B00D70BA3 /* NetworkManger.swift */; };
+		9DEC20512BBEF087001E3B4F /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC20502BBEF087001E3B4F /* UIViewControllerExtension.swift */; };
+		9DEC205A2BBEF374001E3B4F /* GifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEC20582BBEF374001E3B4F /* GifCell.swift */; };
+		9DEC205B2BBEF374001E3B4F /* GifCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DEC20592BBEF374001E3B4F /* GifCell.xib */; };
 		E5AFA1BC5595CFBB72B645EF /* Pods_GiphyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 175C4B3BB91F77184D52A8BF /* Pods_GiphyApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,12 +41,13 @@
 		9D98B8AD2BBE972300D70BA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D98B8B32BBE9D0100D70BA3 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		9D98B8B72BBEC13300D70BA3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		9D98B8B92BBEC49100D70BA3 /* GifCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifCell.swift; sourceTree = "<group>"; };
-		9D98B8BA2BBEC49100D70BA3 /* GifCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifCell.xib; sourceTree = "<group>"; };
 		9D98B8BF2BBEC83800D70BA3 /* GifData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifData.swift; sourceTree = "<group>"; };
 		9D98B8C22BBECE2B00D70BA3 /* ErrorHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlers.swift; sourceTree = "<group>"; };
 		9D98B8C52BBECE4800D70BA3 /* NetworkBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkBuilder.swift; sourceTree = "<group>"; };
 		9D98B8C82BBECE6B00D70BA3 /* NetworkManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManger.swift; sourceTree = "<group>"; };
+		9DEC20502BBEF087001E3B4F /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		9DEC20582BBEF374001E3B4F /* GifCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifCell.swift; sourceTree = "<group>"; };
+		9DEC20592BBEF374001E3B4F /* GifCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +68,6 @@
 				1619CCAF5AA526638B60E649 /* Pods-GiphyApp.debug.xcconfig */,
 				1432BFB8B85F25A8027B595C /* Pods-GiphyApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -120,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				9D98B8B72BBEC13300D70BA3 /* UIViewExtension.swift */,
+				9DEC20502BBEF087001E3B4F /* UIViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -137,8 +139,8 @@
 		9D98B8BD2BBEC49600D70BA3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				9D98B8B92BBEC49100D70BA3 /* GifCell.swift */,
-				9D98B8BA2BBEC49100D70BA3 /* GifCell.xib */,
+				9DEC20582BBEF374001E3B4F /* GifCell.swift */,
+				9DEC20592BBEF374001E3B4F /* GifCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -236,7 +238,7 @@
 			files = (
 				9D98B8AC2BBE972300D70BA3 /* LaunchScreen.storyboard in Resources */,
 				9D98B8A92BBE972300D70BA3 /* Assets.xcassets in Resources */,
-				9D98B8BC2BBEC49100D70BA3 /* GifCell.xib in Resources */,
+				9DEC205B2BBEF374001E3B4F /* GifCell.xib in Resources */,
 				9D98B8A42BBE972200D70BA3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,12 +277,13 @@
 			files = (
 				9D98B8C92BBECE6B00D70BA3 /* NetworkManger.swift in Sources */,
 				9D98B8C02BBEC83800D70BA3 /* GifData.swift in Sources */,
+				9DEC205A2BBEF374001E3B4F /* GifCell.swift in Sources */,
 				9D98B8B82BBEC13300D70BA3 /* UIViewExtension.swift in Sources */,
 				9D98B8B42BBE9D0100D70BA3 /* MainVM.swift in Sources */,
-				9D98B8BB2BBEC49100D70BA3 /* GifCell.swift in Sources */,
 				9D98B8A12BBE972200D70BA3 /* MainVC.swift in Sources */,
 				9D98B89D2BBE972200D70BA3 /* AppDelegate.swift in Sources */,
 				9D98B8C32BBECE2B00D70BA3 /* ErrorHandlers.swift in Sources */,
+				9DEC20512BBEF087001E3B4F /* UIViewControllerExtension.swift in Sources */,
 				9D98B89F2BBE972200D70BA3 /* SceneDelegate.swift in Sources */,
 				9D98B8C62BBECE4800D70BA3 /* NetworkBuilder.swift in Sources */,
 				9D98B8A72BBE972200D70BA3 /* GiphyApp.xcdatamodeld in Sources */,

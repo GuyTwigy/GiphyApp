@@ -9,10 +9,12 @@ import UIKit
 
 class MainVC: UIViewController {
 
-    var vm: MainVM?
-    var gifArray: [GifData] = []
-    var firstLoad: Bool = true
-    var fetchMore: Bool = false
+    private var vm: MainVM?
+    private var gifArray: [GifData] = []
+    private var firstLoad: Bool = true
+    private var fetchMore: Bool = false
+    private var pageCounter: Int = 0
+    private var fetchType: GifType = .trending
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UITextField!
@@ -65,7 +67,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCell", for: indexPath) as! GifCell
-        
+        cell.setupContent(gifdata: gifArray[indexPath.row])
         return cell
     }
     
@@ -74,7 +76,16 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-       // fetch more data
+        if indexPath.row >= gifArray.count - 150 && fetchMore {
+            pageCounter += 1
+            firstLoad = false
+            switch fetchType {
+            case .trending:
+                vm?.getTrendingGifs(page: pageCounter, gifType: .trending)
+            case .serach:
+                vm?.getTrendingGifs(page: pageCounter, gifType: .serach)
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -83,7 +94,9 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
 }
 
 extension MainVC: UITextFieldDelegate {
-    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        fetchType = textField.text?.isEmpty ?? true ? .trending : .serach
+    }
 }
 
 extension MainVC: MainVMDelegate {
@@ -94,7 +107,7 @@ extension MainVC: MainVMDelegate {
             }
             
             if let error {
-                // show error alert
+                self.presentAlert(withTitle: "אירעה שגיאה, אנא נסה שנית מאוחר יותר", message: error.localizedDescription)
             } else {
                 if firstLoad {
                     self.gifArray.removeAll()
@@ -103,7 +116,7 @@ extension MainVC: MainVMDelegate {
                     self.gifArray.append(contentsOf: gifArr)
                 }
                 
-                fetchMore = gifArray.count < totalCount
+                self.fetchMore = gifArray.count < totalCount
                 self.collectionView.reloadData()
                 self.loader.stopAnimating()
             }

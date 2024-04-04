@@ -24,12 +24,19 @@ class MainVM {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        getTrendingGifs()
+        getTrendingGifs(gifType: .trending)
     }
     
-    func getTrendingGifs(page: Int = 0) {
+    func getTrendingGifs(page: Int = 0, gifType: GifType) {
         let queries = "&limit=15&offset=\(page * 15)"
-        if let url = URL(string: "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.trendingEndPoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)") {
+        var urlString = String()
+        switch gifType {
+        case .trending:
+            urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.trendingEndPoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)"
+        case .serach:
+            urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.searchEndpoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)"
+        }
+        if let url = URL(string: urlString) {
             let urlRequest = URLRequest(url: url)
             NetworkManager.shared.genericGetCall(url: urlRequest, type: GifResponse.self)
                 .sink { [weak self]  completion in
