@@ -6,21 +6,54 @@
 //
 
 import Foundation
+import Combine
+
+enum GifType {
+    case trending
+    case serach
+}
 
 protocol MainVMDelegate: AnyObject {
-    func terndinfFetched()
+    func terndinfFetched(gifArr: [GifData], totalCount: Int, error: Error?)
 }
 
 class MainVM {
     
+    var gifArray: [GifData] = []
     weak var delegate: MainVMDelegate?
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         getTrendingGifs()
     }
-        
     
-    func getTrendingGifs() {
-            
+    func getTrendingGifs(page: Int = 0) {
+        let queries = "&limit=15&offset=\(page * 15)"
+        if let url = URL(string: "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.trendingEndPoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)") {
+            let urlRequest = URLRequest(url: url)
+            NetworkManager.shared.genericGetCall(url: urlRequest, type: GifResponse.self)
+                .sink { [weak self]  completion in
+                    guard let self else {
+                        self?.delegate?.terndinfFetched(gifArr: [], totalCount: 0, error: ErrorsHandlers.requestError(.invalidRequest(urlRequest)))
+                        return
+                    }
+                    
+                    if case .failure(let error) = completion {
+                        print(ErrorsHandlers.requestError(.other(error)))
+                        self.delegate?.terndinfFetched(gifArr: [], totalCount: 0, error: ErrorsHandlers.requestError(.other(error)))
+                    }
+                } receiveValue: { [weak self] gifResponse in
+                    guard let self else {
+                        self?.delegate?.terndinfFetched(gifArr: [], totalCount: 0,  error: ErrorsHandlers.serverError(.noInternetConnection))
+                        return
+                    }
+                    
+                    
+                    self.delegate?.terndinfFetched(gifArr: gifResponse.data, totalCount: gifResponse.pagination.totalCount, error: nil)
+                }
+                .store(in: &cancellables)
+        } else {
+            delegate?.terndinfFetched(gifArr: [], totalCount: 0, error: ErrorsHandlers.requestError(.invalidData))
+        }
     }
 }
