@@ -1,0 +1,20 @@
+PODS:
+  - ImageIOSwift (1.1.2)
+  - ImageIOUIKit (1.1.1):
+    - ImageIOSwift (~> 1.1.0)
+
+DEPENDENCIES:
+  - ImageIOUIKit
+
+SPEC REPOS:
+  trunk:
+    - ImageIOSwift
+    - ImageIOUIKit
+
+SPEC CHECKSUMS:
+  ImageIOSwift: b0a29a05df3a5177253bfe051945938f9fc57520
+  ImageIOUIKit: 2cad0673a2377e94444d2ea7ef1703f73e3cea4b
+
+PODFILE CHECKSUM: ef94f6b000f9d01f15f25afc2885addb9228473d
+
+COCOAPODS: 1.15.2
