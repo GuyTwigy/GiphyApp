@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		9D98B89D2BBE972200D70BA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B89C2BBE972200D70BA3 /* AppDelegate.swift */; };
 		9D98B89F2BBE972200D70BA3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B89E2BBE972200D70BA3 /* SceneDelegate.swift */; };
-		9D98B8A12BBE972200D70BA3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8A02BBE972200D70BA3 /* ViewController.swift */; };
+		9D98B8A12BBE972200D70BA3 /* TrendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8A02BBE972200D70BA3 /* TrendingVC.swift */; };
 		9D98B8A42BBE972200D70BA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D98B8A22BBE972200D70BA3 /* Main.storyboard */; };
 		9D98B8A72BBE972200D70BA3 /* GiphyApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8A52BBE972200D70BA3 /* GiphyApp.xcdatamodeld */; };
 		9D98B8A92BBE972300D70BA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D98B8A82BBE972300D70BA3 /* Assets.xcassets */; };
 		9D98B8AC2BBE972300D70BA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D98B8AA2BBE972300D70BA3 /* LaunchScreen.storyboard */; };
+		9D98B8B42BBE9D0100D70BA3 /* TrendingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98B8B32BBE9D0100D70BA3 /* TrendingVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9D98B8992BBE972200D70BA3 /* GiphyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiphyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D98B89C2BBE972200D70BA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D98B89E2BBE972200D70BA3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9D98B8A02BBE972200D70BA3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9D98B8A02BBE972200D70BA3 /* TrendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingVC.swift; sourceTree = "<group>"; };
 		9D98B8A32BBE972200D70BA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9D98B8A62BBE972200D70BA3 /* GiphyApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GiphyApp.xcdatamodel; sourceTree = "<group>"; };
 		9D98B8A82BBE972300D70BA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D98B8AB2BBE972300D70BA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D98B8AD2BBE972300D70BA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D98B8B32BBE9D0100D70BA3 /* TrendingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +62,13 @@
 			children = (
 				9D98B89C2BBE972200D70BA3 /* AppDelegate.swift */,
 				9D98B89E2BBE972200D70BA3 /* SceneDelegate.swift */,
-				9D98B8A02BBE972200D70BA3 /* ViewController.swift */,
+				9D98B8A02BBE972200D70BA3 /* TrendingVC.swift */,
 				9D98B8A22BBE972200D70BA3 /* Main.storyboard */,
 				9D98B8A82BBE972300D70BA3 /* Assets.xcassets */,
 				9D98B8AA2BBE972300D70BA3 /* LaunchScreen.storyboard */,
 				9D98B8AD2BBE972300D70BA3 /* Info.plist */,
 				9D98B8A52BBE972200D70BA3 /* GiphyApp.xcdatamodeld */,
+				9D98B8B32BBE9D0100D70BA3 /* TrendingVM.swift */,
 			);
 			path = GiphyApp;
 			sourceTree = "<group>";
@@ -141,7 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D98B8A12BBE972200D70BA3 /* ViewController.swift in Sources */,
+				9D98B8B42BBE9D0100D70BA3 /* TrendingVM.swift in Sources */,
+				9D98B8A12BBE972200D70BA3 /* TrendingVC.swift in Sources */,
 				9D98B89D2BBE972200D70BA3 /* AppDelegate.swift in Sources */,
 				9D98B89F2BBE972200D70BA3 /* SceneDelegate.swift in Sources */,
 				9D98B8A72BBE972200D70BA3 /* GiphyApp.xcdatamodeld in Sources */,
