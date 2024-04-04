@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol TrendingVMDelegate: AnyObject {
+protocol MainVMDelegate: AnyObject {
     func terndinfFetched()
 }
 
-class TrendingVM {
+class MainVM {
     
-    weak var delegate: TrendingVMDelegate?
+    weak var delegate: MainVMDelegate?
     
     init() {
         getTrendingGifs()
