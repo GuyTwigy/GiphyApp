@@ -52,7 +52,7 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="מועדפים">
                                             <attributes>
-                                                <font key="NSFont" size="17" name=".SFHebrew-Regular"/>
+                                                <font key="NSFont" metaFont="system" size="17"/>
                                                 <font key="NSOriginalFont" metaFont="system" size="17"/>
                                             </attributes>
                                         </fragment>
@@ -94,6 +94,9 @@
                                     <constraint firstItem="Vo6-RG-3Kj" firstAttribute="leading" secondItem="yRq-HN-G3X" secondAttribute="leading" id="zDD-bq-Hte"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1dk-VW-bgC">
+                                <rect key="frame" x="178" y="350" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -105,14 +108,17 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wqW-cH-1cI" secondAttribute="trailing" constant="10" id="UWI-Z9-GUe"/>
                             <constraint firstItem="yRq-HN-G3X" firstAttribute="top" secondItem="t9Z-C2-HYe" secondAttribute="bottom" constant="10" id="Ux0-GM-vtb"/>
                             <constraint firstItem="t9Z-C2-HYe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-15" id="VwN-RH-dFL"/>
+                            <constraint firstItem="1dk-VW-bgC" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.8" id="XK4-Fq-1se"/>
                             <constraint firstItem="yRq-HN-G3X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cjh-nR-uYh"/>
                             <constraint firstItem="t9Z-C2-HYe" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="cx1-nK-9FL"/>
                             <constraint firstItem="wqW-cH-1cI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-15" id="ij5-fp-F0s"/>
+                            <constraint firstItem="1dk-VW-bgC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="sPc-br-j56"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7BB-Zy-dkF"/>
                     <connections>
                         <outlet property="collectionView" destination="Vo6-RG-3Kj" id="acG-iu-SsE"/>
+                        <outlet property="loader" destination="1dk-VW-bgC" id="N4S-tV-bm4"/>
                         <outlet property="searchTextField" destination="t9Z-C2-HYe" id="Tfj-0a-FLs"/>
                     </connections>
                 </viewController>

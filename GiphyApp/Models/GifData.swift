@@ -18,8 +18,18 @@ struct GifData: Codable {
 }
 
 struct Pagination: Codable {
-    let total_count: Int
     let count: Int
+    let totalCount: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case count
+        case totalCount = "total_count"
+    }
+    
+    init(count: Int, totalCount: Int) {
+        self.count = count
+        self.totalCount = totalCount
+    }
 }
 
 struct Images: Codable {
