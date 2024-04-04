@@ -9,13 +9,23 @@ import UIKit
 
 class MainVC: UIViewController {
 
+    var vm: MainVM?
+    var gifArray: [GifData] = []
+    var firstLoad: Bool = true
+    var fetchMore: Bool = false
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UITextField!
-    
-    var vm: MainVM?
+    @IBOutlet weak var loader: UIActivityIndicatorView! {
+        didSet {
+            loader.startAnimating()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        vm = MainVM()
+        vm?.delegate = self
         setupCollectionView()
         setupTextField()
     }
@@ -24,7 +34,7 @@ class MainVC: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = createLayout()
-        collectionView.register(UINib(nibName: GifCell.nibName, bundle: nil), forCellWithReuseIdentifier: GifCell.nibName)
+        collectionView.register(UINib(nibName: "GifCell", bundle: nil), forCellWithReuseIdentifier: "GifCell")
     }
     
     func setupTextField() {
@@ -54,31 +64,17 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GifCell.nibName, for: indexPath) as! GifCell
-        cell.gifArray = gifArray
-        cell.index = indexPath.row
-        cell.setupContent()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCell", for: indexPath) as! GifCell
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let fullGifVC = FullGifVC()
-        fullGifVC.gifArray = gifArray
-        fullGifVC.index = indexPath.row
-        fullGifVC.delegate = self
-        fullGifVC.state = .fromSearch
-        navigationController?.pushViewController(fullGifVC, animated: true)
+       // make favorite
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row >= gifArray.count - 150 && fetchMore {
-            pageCounter += 1
-            if trending {
-                getTrending(pageCounter: pageCounter, firstLoad: false)
-            } else {
-                getGif(search: searchBarText, pageCounter: pageCounter, firstLoad: false)
-            }
-        }
+       // fetch more data
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -88,4 +84,29 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
 
 extension MainVC: UITextFieldDelegate {
     
+}
+
+extension MainVC: MainVMDelegate {
+    func terndinfFetched(gifArr: [GifData], totalCount: Int, error: Error?) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            if let error {
+                // show error alert
+            } else {
+                if firstLoad {
+                    self.gifArray.removeAll()
+                    self.gifArray = gifArr
+                } else {
+                    self.gifArray.append(contentsOf: gifArr)
+                }
+                
+                fetchMore = gifArray.count < totalCount
+                self.collectionView.reloadData()
+                self.loader.stopAnimating()
+            }
+        }
+    }
 }
