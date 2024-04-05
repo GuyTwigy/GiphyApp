@@ -123,9 +123,9 @@ extension MainVC: MainVMDelegate {
                 }
                 
                 self.fetchMore = gifArray.count < totalCount
-                noResultsLbl.isHidden = !gifArray.isEmpty
-                noResultsSearchLbl.isHidden = !gifArray.isEmpty
-                noResultsSearchLbl.text = gifArray.isEmpty ? "'\(searchString ?? "")'" : ""
+                self.noResultsLbl.isHidden = !gifArray.isEmpty
+                self.noResultsSearchLbl.isHidden = !gifArray.isEmpty
+                self.noResultsSearchLbl.text = gifArray.isEmpty ? "'\(searchString ?? "")'" : ""
                 self.loader.stopAnimating()
             }
         }
