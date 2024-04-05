@@ -39,7 +39,7 @@
                                     <constraint firstAttribute="height" constant="50" id="W8x-bi-TbH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqW-cH-1cI">
                                 <rect key="frame" x="222.66666666666663" y="88" width="160.33333333333337" height="50"/>
@@ -94,6 +94,18 @@
                                     <constraint firstItem="Vo6-RG-3Kj" firstAttribute="leading" secondItem="yRq-HN-G3X" secondAttribute="leading" id="zDD-bq-Hte"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results found for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIt-9i-zSX">
+                                <rect key="frame" x="118.66666666666667" y="208" width="155.66666666666663" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXF-tH-Gfg">
+                                <rect key="frame" x="10" y="234" width="373" height="20.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1dk-VW-bgC">
                                 <rect key="frame" x="178" y="350" width="37" height="37"/>
                             </activityIndicatorView>
@@ -101,10 +113,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LXF-tH-Gfg" secondAttribute="trailing" constant="10" id="0uB-Eq-hda"/>
                             <constraint firstItem="wqW-cH-1cI" firstAttribute="leading" secondItem="t9Z-C2-HYe" secondAttribute="trailing" constant="10" id="2ic-d1-1K2"/>
+                            <constraint firstItem="LXF-tH-Gfg" firstAttribute="top" secondItem="HIt-9i-zSX" secondAttribute="bottom" constant="5" id="48y-dN-73K"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yRq-HN-G3X" secondAttribute="trailing" id="8cs-Fi-Hfu"/>
                             <constraint firstItem="t9Z-C2-HYe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="IPA-Xc-tgd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yRq-HN-G3X" secondAttribute="bottom" id="O0a-py-9Go"/>
+                            <constraint firstItem="HIt-9i-zSX" firstAttribute="top" secondItem="t9Z-C2-HYe" secondAttribute="bottom" constant="70" id="QE6-SP-QBh"/>
+                            <constraint firstItem="HIt-9i-zSX" firstAttribute="centerX" secondItem="yRq-HN-G3X" secondAttribute="centerX" id="TVg-5Z-UkI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wqW-cH-1cI" secondAttribute="trailing" constant="10" id="UWI-Z9-GUe"/>
                             <constraint firstItem="yRq-HN-G3X" firstAttribute="top" secondItem="t9Z-C2-HYe" secondAttribute="bottom" constant="10" id="Ux0-GM-vtb"/>
                             <constraint firstItem="t9Z-C2-HYe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-15" id="VwN-RH-dFL"/>
@@ -113,12 +129,15 @@
                             <constraint firstItem="t9Z-C2-HYe" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="cx1-nK-9FL"/>
                             <constraint firstItem="wqW-cH-1cI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-15" id="ij5-fp-F0s"/>
                             <constraint firstItem="1dk-VW-bgC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="sPc-br-j56"/>
+                            <constraint firstItem="LXF-tH-Gfg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="vlh-Y5-Ncn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7BB-Zy-dkF"/>
                     <connections>
                         <outlet property="collectionView" destination="Vo6-RG-3Kj" id="acG-iu-SsE"/>
                         <outlet property="loader" destination="1dk-VW-bgC" id="N4S-tV-bm4"/>
+                        <outlet property="noResultsLbl" destination="HIt-9i-zSX" id="eR2-aT-b5B"/>
+                        <outlet property="noResultsSearchLbl" destination="LXF-tH-Gfg" id="I5y-qZ-Lvo"/>
                         <outlet property="searchTextField" destination="t9Z-C2-HYe" id="Tfj-0a-FLs"/>
                     </connections>
                 </viewController>

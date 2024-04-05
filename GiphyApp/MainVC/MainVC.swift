@@ -11,9 +11,8 @@ class MainVC: UIViewController {
 
     private var vm: MainVM?
     private var gifArray: [GifData] = []
-    private var firstLoad: Bool = true
     private var fetchMore: Bool = false
-    private var pageCounter: Int = 0
+    private var searchString: String?
     private var fetchType: GifType = .trending
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -23,6 +22,8 @@ class MainVC: UIViewController {
             loader.startAnimating()
         }
     }
+    @IBOutlet weak var noResultsLbl: UILabel!
+    @IBOutlet weak var noResultsSearchLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,30 +78,30 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row >= gifArray.count - 150 && fetchMore {
-            pageCounter += 1
-            firstLoad = false
-            switch fetchType {
-            case .trending:
-                vm?.getTrendingGifs(page: pageCounter, gifType: .trending)
-            case .serach:
-                vm?.getTrendingGifs(page: pageCounter, gifType: .serach)
-            }
+            vm?.getTrendingGifs(gifType: fetchType, setToZero: false, searchString: searchString)
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchTextField.resignFirstResponder()
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.resignFirstResponder()
+        return true
+    }
 }
 
 extension MainVC: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         fetchType = textField.text?.isEmpty ?? true ? .trending : .serach
+        searchString = textField.text
+        vm?.getTrendingGifs(gifType: fetchType, setToZero: true, searchString: searchString)
     }
 }
 
 extension MainVC: MainVMDelegate {
-    func terndinfFetched(gifArr: [GifData], totalCount: Int, error: Error?) {
+    func payoadFetched(gifArr: [GifData], totalCount: Int, removeAll: Bool, error: Error?) {
         DispatchQueue.main.async { [weak self] in
             guard let self else {
                 return
@@ -109,7 +110,7 @@ extension MainVC: MainVMDelegate {
             if let error {
                 self.presentAlert(withTitle: "אירעה שגיאה, אנא נסה שנית מאוחר יותר", message: error.localizedDescription)
             } else {
-                if firstLoad {
+                if removeAll {
                     self.gifArray.removeAll()
                     self.gifArray = gifArr
                 } else {
@@ -117,6 +118,9 @@ extension MainVC: MainVMDelegate {
                 }
                 
                 self.fetchMore = gifArray.count < totalCount
+                noResultsLbl.isHidden = !gifArray.isEmpty
+                noResultsSearchLbl.isHidden = !gifArray.isEmpty
+                noResultsSearchLbl.text = gifArray.isEmpty ? "'\(searchString ?? "")'" : ""
                 self.collectionView.reloadData()
                 self.loader.stopAnimating()
             }

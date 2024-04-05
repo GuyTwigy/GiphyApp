@@ -14,53 +14,56 @@ enum GifType {
 }
 
 protocol MainVMDelegate: AnyObject {
-    func terndinfFetched(gifArr: [GifData], totalCount: Int, error: Error?)
+    func payoadFetched(gifArr: [GifData], totalCount: Int, removeAll: Bool, error: Error?)
 }
 
 class MainVM {
     
     var gifArray: [GifData] = []
+    var pageCounter: Int = 0
     weak var delegate: MainVMDelegate?
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        getTrendingGifs(gifType: .trending)
+        getTrendingGifs(gifType: .trending, setToZero: true)
     }
     
-    func getTrendingGifs(page: Int = 0, gifType: GifType) {
-        let queries = "&limit=15&offset=\(page * 15)"
+    func getTrendingGifs(gifType: GifType, setToZero: Bool, searchString: String? = nil) {
+        pageCounter = setToZero ? 0 : pageCounter + 1
+        let queries = "&limit=15&offset=\(pageCounter * 15)"
         var urlString = String()
         switch gifType {
         case .trending:
             urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.trendingEndPoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)"
         case .serach:
-            urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.searchEndpoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)"
+            let searchQuery = "&q=\(searchString ?? "")"
+            urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.searchEndpoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)\(searchQuery)"
         }
         if let url = URL(string: urlString) {
             let urlRequest = URLRequest(url: url)
             NetworkManager.shared.genericGetCall(url: urlRequest, type: GifResponse.self)
                 .sink { [weak self]  completion in
                     guard let self else {
-                        self?.delegate?.terndinfFetched(gifArr: [], totalCount: 0, error: ErrorsHandlers.requestError(.invalidRequest(urlRequest)))
+                        self?.delegate?.payoadFetched(gifArr: [], totalCount: 0, removeAll: setToZero, error: ErrorsHandlers.requestError(.invalidRequest(urlRequest)))
                         return
                     }
                     
                     if case .failure(let error) = completion {
                         print(ErrorsHandlers.requestError(.other(error)))
-                        self.delegate?.terndinfFetched(gifArr: [], totalCount: 0, error: ErrorsHandlers.requestError(.other(error)))
+                        self.delegate?.payoadFetched(gifArr: [], totalCount: 0, removeAll: setToZero, error: ErrorsHandlers.requestError(.other(error)))
                     }
                 } receiveValue: { [weak self] gifResponse in
                     guard let self else {
-                        self?.delegate?.terndinfFetched(gifArr: [], totalCount: 0,  error: ErrorsHandlers.serverError(.noInternetConnection))
+                        self?.delegate?.payoadFetched(gifArr: [], totalCount: 0, removeAll: setToZero,  error: ErrorsHandlers.serverError(.noInternetConnection))
                         return
                     }
                     
                     
-                    self.delegate?.terndinfFetched(gifArr: gifResponse.data, totalCount: gifResponse.pagination.totalCount, error: nil)
+                    self.delegate?.payoadFetched(gifArr: gifResponse.data, totalCount: gifResponse.pagination.totalCount, removeAll: setToZero, error: nil)
                 }
                 .store(in: &cancellables)
         } else {
-            delegate?.terndinfFetched(gifArr: [], totalCount: 0, error: ErrorsHandlers.requestError(.invalidData))
+            delegate?.payoadFetched(gifArr: [], totalCount: 0, removeAll: setToZero, error: ErrorsHandlers.requestError(.invalidData))
         }
     }
 }
