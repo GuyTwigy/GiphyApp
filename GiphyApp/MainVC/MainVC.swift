@@ -9,10 +9,12 @@ import UIKit
 
 class MainVC: UIViewController {
 
-    var vm: MainVM?
-    var gifArray: [GifData] = []
-    var firstLoad: Bool = true
-    var fetchMore: Bool = false
+    private var vm: MainVM?
+    private var gifArray: [GifData] = []
+    private var fetchMore: Bool = false
+    private var searchString: String?
+    private var fetchType: MainVM.GifType = .trending
+    private var collectionState: MainVM.collectionViewState = .all
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UITextField!
@@ -21,6 +23,10 @@ class MainVC: UIViewController {
             loader.startAnimating()
         }
     }
+    @IBOutlet weak var noResultsLbl: UILabel!
+    @IBOutlet weak var noResultsSearchLbl: UILabel!
+    @IBOutlet weak var btnFavorites: UIButton!
+    @IBOutlet weak var titleFavovitesLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +62,31 @@ class MainVC: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    func flipAndHideContentView() {
+        UIView.transition(with: collectionView, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+            // flip the view
+        }) { _ in
+            // change collection view fo favorites collectin
+        }
+    }
+    
+    @IBAction func favoriteBtnTapped(_ sender: Any) {
+        collectionState = collectionState == .all ? .favorite : .all
+        switch collectionState {
+        case .all:
+            btnFavorites.setTitle("למועדפים", for: .normal)
+            searchTextField.isHidden = false
+            titleFavovitesLbl.isHidden = true
+            flipAndHideContentView()
+        case .favorite:
+            btnFavorites.setTitle("בחזרה למסך הראשי", for: .normal)
+            searchTextField.isHidden = true
+            titleFavovitesLbl.isHidden = false
+            flipAndHideContentView()
+        }
+    }
+    
 }
 
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -65,7 +96,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCell", for: indexPath) as! GifCell
-        
+        cell.setupContent(gifdata: gifArray[indexPath.row])
         return cell
     }
     
@@ -74,39 +105,57 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-       // fetch more data
+        if indexPath.row >= gifArray.count - 15 && fetchMore {
+            vm?.getTrendingGifs(gifType: fetchType, setToZero: false, searchString: searchString)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchTextField.resignFirstResponder()
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.resignFirstResponder()
+        return true
+    }
 }
 
 extension MainVC: UITextFieldDelegate {
-    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        fetchType = textField.text?.isEmpty ?? true ? .trending : .serach
+        searchString = textField.text
+        vm?.getTrendingGifs(gifType: fetchType, setToZero: true, searchString: searchString)
+    }
 }
 
 extension MainVC: MainVMDelegate {
-    func terndinfFetched(gifArr: [GifData], totalCount: Int, error: Error?) {
+    func payoadFetched(gifArr: [GifData], totalCount: Int, removeAll: Bool, error: Error?) {
         DispatchQueue.main.async { [weak self] in
             guard let self else {
                 return
             }
             
             if let error {
-                // show error alert
+                self.presentAlert(withTitle: "אירעה שגיאה, אנא נסה שנית מאוחר יותר", message: error.localizedDescription)
             } else {
-                if firstLoad {
+                let startIndex = self.gifArray.count
+                if removeAll {
                     self.gifArray.removeAll()
                     self.gifArray = gifArr
+                    self.collectionView.reloadData()
                 } else {
                     self.gifArray.append(contentsOf: gifArr)
+                    let endIndex = self.gifArray.count - 1
+                    let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+                    self.collectionView.insertItems(at: indexPaths)
                 }
                 
-                fetchMore = gifArray.count < totalCount
-                self.collectionView.reloadData()
-                self.loader.stopAnimating()
+                self.fetchMore = gifArray.count < totalCount
+                self.noResultsLbl.isHidden = !gifArray.isEmpty
+                self.noResultsSearchLbl.isHidden = !gifArray.isEmpty
+                self.noResultsSearchLbl.text = gifArray.isEmpty ? "'\(searchString ?? "")'" : ""
             }
+            self.loader.stopAnimating()
         }
     }
 }
