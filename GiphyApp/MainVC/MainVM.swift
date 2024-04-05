@@ -8,16 +8,21 @@
 import Foundation
 import Combine
 
-enum GifType {
-    case trending
-    case serach
-}
-
 protocol MainVMDelegate: AnyObject {
     func payoadFetched(gifArr: [GifData], totalCount: Int, removeAll: Bool, error: Error?)
 }
 
 class MainVM {
+    
+    enum GifType {
+        case trending
+        case serach
+    }
+    
+    enum collectionViewState {
+        case all
+        case favorite
+    }
     
     var gifArray: [GifData] = []
     var pageCounter: Int = 0

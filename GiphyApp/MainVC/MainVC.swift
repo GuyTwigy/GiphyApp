@@ -13,7 +13,8 @@ class MainVC: UIViewController {
     private var gifArray: [GifData] = []
     private var fetchMore: Bool = false
     private var searchString: String?
-    private var fetchType: GifType = .trending
+    private var fetchType: MainVM.GifType = .trending
+    private var collectionState: MainVM.collectionViewState = .all
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UITextField!
@@ -24,6 +25,8 @@ class MainVC: UIViewController {
     }
     @IBOutlet weak var noResultsLbl: UILabel!
     @IBOutlet weak var noResultsSearchLbl: UILabel!
+    @IBOutlet weak var btnFavorites: UIButton!
+    @IBOutlet weak var titleFavovitesLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +62,31 @@ class MainVC: UIViewController {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    func flipAndHideContentView() {
+        UIView.transition(with: collectionView, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+            // flip the view
+        }) { _ in
+            // change collection view fo favorites collectin
+        }
+    }
+    
+    @IBAction func favoriteBtnTapped(_ sender: Any) {
+        collectionState = collectionState == .all ? .favorite : .all
+        switch collectionState {
+        case .all:
+            btnFavorites.setTitle("למועדפים", for: .normal)
+            searchTextField.isHidden = false
+            titleFavovitesLbl.isHidden = true
+            flipAndHideContentView()
+        case .favorite:
+            btnFavorites.setTitle("בחזרה למסך הראשי", for: .normal)
+            searchTextField.isHidden = true
+            titleFavovitesLbl.isHidden = false
+            flipAndHideContentView()
+        }
+    }
+    
 }
 
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -126,8 +154,8 @@ extension MainVC: MainVMDelegate {
                 self.noResultsLbl.isHidden = !gifArray.isEmpty
                 self.noResultsSearchLbl.isHidden = !gifArray.isEmpty
                 self.noResultsSearchLbl.text = gifArray.isEmpty ? "'\(searchString ?? "")'" : ""
-                self.loader.stopAnimating()
             }
+            self.loader.stopAnimating()
         }
     }
 }

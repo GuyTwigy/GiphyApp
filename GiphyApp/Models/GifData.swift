@@ -10,6 +10,7 @@ import Foundation
 struct GifResponse: Codable {
     let data: [GifData]
     let pagination: Pagination
+    let favorite: Bool
 }
 
 struct GifData: Codable {
