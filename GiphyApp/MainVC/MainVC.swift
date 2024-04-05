@@ -77,7 +77,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row >= gifArray.count - 150 && fetchMore {
+        if indexPath.row >= gifArray.count - 15 && fetchMore {
             vm?.getTrendingGifs(gifType: fetchType, setToZero: false, searchString: searchString)
         }
     }
@@ -110,18 +110,22 @@ extension MainVC: MainVMDelegate {
             if let error {
                 self.presentAlert(withTitle: "אירעה שגיאה, אנא נסה שנית מאוחר יותר", message: error.localizedDescription)
             } else {
+                let startIndex = self.gifArray.count
                 if removeAll {
                     self.gifArray.removeAll()
                     self.gifArray = gifArr
+                    self.collectionView.reloadData()
                 } else {
                     self.gifArray.append(contentsOf: gifArr)
+                    let endIndex = self.gifArray.count - 1
+                    let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+                    self.collectionView.insertItems(at: indexPaths)
                 }
                 
                 self.fetchMore = gifArray.count < totalCount
                 noResultsLbl.isHidden = !gifArray.isEmpty
                 noResultsSearchLbl.isHidden = !gifArray.isEmpty
                 noResultsSearchLbl.text = gifArray.isEmpty ? "'\(searchString ?? "")'" : ""
-                self.collectionView.reloadData()
                 self.loader.stopAnimating()
             }
         }
