@@ -206,7 +206,7 @@ extension MainVC: MainVMDelegate {
                 case .favorite:
                     self.noResultsLbl.isHidden = true
                     self.noResultsSearchLbl.isHidden = !self.gifArray.isEmpty
-                    self.noResultsSearchLbl.text = "Favorite Is Empty"
+                    self.noResultsSearchLbl.text = "רשימת המועדפים ריקה"
                 }
             }
             self.endRefreshing(scrollView: self.collectionView)
