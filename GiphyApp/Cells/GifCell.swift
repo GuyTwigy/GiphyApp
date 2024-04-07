@@ -68,7 +68,7 @@ class GifCell: UICollectionViewCell {
                         self.favoriteImage.transform = .identity
                     }) { _ in
                         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-                            self.favoriteImage.alpha = 0
+                            self.favoriteImage.isHidden = true
                         })
                     }
                 }
@@ -81,10 +81,10 @@ class GifCell: UICollectionViewCell {
             switch state {
             case .all:
                 animationForFavotite()
+                delegate?.cellTapped(gif: gif, state: state)
             case .favorite:
-                break
+                delegate?.cellTapped(gif: gif, state: state)
             }
-            delegate?.cellTapped(gif: gif, state: state)
         }
     }
 }

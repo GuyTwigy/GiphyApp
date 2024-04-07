@@ -96,15 +96,41 @@
                                 <rect key="frame" x="178" y="332.33333333333331" width="37" height="37"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHU-wW-XGx">
+                                <rect key="frame" x="323" y="129.66666666666666" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Wl2-ux-zkB"/>
+                                    <constraint firstAttribute="height" constant="50" id="iUz-dh-tan"/>
+                                </constraints>
+                                <color key="tintColor" red="0.76069141819999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="trash.fill" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.76069141819999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="trashTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1jT-Lh-Pbb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LXF-tH-Gfg" secondAttribute="trailing" constant="10" id="0uB-Eq-hda"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uHU-wW-XGx" secondAttribute="trailing" constant="20" id="3T3-V8-gR1"/>
                             <constraint firstItem="LXF-tH-Gfg" firstAttribute="top" secondItem="HIt-9i-zSX" secondAttribute="bottom" constant="5" id="48y-dN-73K"/>
                             <constraint firstItem="t9Z-C2-HYe" firstAttribute="top" secondItem="wqW-cH-1cI" secondAttribute="bottom" constant="10" id="4KD-f2-aBE"/>
                             <constraint firstItem="wqW-cH-1cI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="5tI-xt-cWE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yRq-HN-G3X" secondAttribute="trailing" id="8cs-Fi-Hfu"/>
+                            <constraint firstItem="uHU-wW-XGx" firstAttribute="centerY" secondItem="ruY-oc-ody" secondAttribute="centerY" id="CDK-on-V8E"/>
                             <constraint firstItem="ruY-oc-ody" firstAttribute="top" secondItem="wqW-cH-1cI" secondAttribute="bottom" constant="20" id="D7g-D2-UGQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t9Z-C2-HYe" secondAttribute="trailing" constant="50" id="HCl-56-9Od"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wqW-cH-1cI" secondAttribute="trailing" constant="50" id="O73-xD-edQ"/>
@@ -130,6 +156,7 @@
                         <outlet property="noResultsSearchLbl" destination="LXF-tH-Gfg" id="I5y-qZ-Lvo"/>
                         <outlet property="searchTextField" destination="t9Z-C2-HYe" id="Tfj-0a-FLs"/>
                         <outlet property="titleFavovitesLbl" destination="ruY-oc-ody" id="M36-rc-YDs"/>
+                        <outlet property="trashBtn" destination="uHU-wW-XGx" id="yTv-yM-YJb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -138,6 +165,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="trash.fill" catalog="system" width="117" height="128"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

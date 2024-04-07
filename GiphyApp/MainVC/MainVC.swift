@@ -27,6 +27,7 @@ class MainVC: UIViewController {
     @IBOutlet weak var noResultsSearchLbl: UILabel!
     @IBOutlet weak var btnFavorites: UIButton!
     @IBOutlet weak var titleFavovitesLbl: UILabel!
+    @IBOutlet weak var trashBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,7 @@ class MainVC: UIViewController {
             btnFavorites.setTitle("למועדפים", for: .normal)
             searchTextField.isHidden = false
             titleFavovitesLbl.isHidden = true
+            trashBtn.isHidden = true
             flipAndHideContentView()
             vm?.getGifs(gifType: fetchType, setToZero: true, searchString: searchString)
         case .favorite:
@@ -90,8 +92,23 @@ class MainVC: UIViewController {
             btnFavorites.setTitle("בחזרה למסך הראשי", for: .normal)
             searchTextField.isHidden = true
             titleFavovitesLbl.isHidden = false
+            trashBtn.isHidden = false
             flipAndHideContentView()
             vm?.fetchFavorites()
+        }
+    }
+    
+    @IBAction func trashTapped(_ sender: Any) {
+        if gifArray.isEmpty {
+            presentAlert(withTitle: "רשימת המועדפים ריקה", message: "")
+        } else {
+            presentAlertWithAction(withTitle: "האם ברצונך למחוק את כל רשימת המועדפים?", message: "במידה ותלחץ/י אישור הרשימה תמחק") { [weak self] in
+                guard let self else {
+                    return
+                }
+                
+                self.vm?.removeAllFavorites()
+            }
         }
     }
     
@@ -120,7 +137,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         switch collectionState {
         case .all:
-            if indexPath.row >= gifArray.count - 3 && fetchMore {
+            if indexPath.row >= gifArray.count - 7 && fetchMore {
                 vm?.getGifs(gifType: fetchType, setToZero: false, searchString: searchString)
             }
         case .favorite:
