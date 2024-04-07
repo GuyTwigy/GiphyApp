@@ -24,6 +24,7 @@ class GifCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        gifView.task?.cancel()
         favoriteImage.isHidden = true
         gif = nil
         delegate = nil
