@@ -21,7 +21,7 @@ class GifCell: UICollectionViewCell {
     func setupContent(gifdata: GifData) {
         loader.startAnimating()
         gifView.isAnimationEnabled = true
-        if let url = URL(string: gifdata.images.original.url) {
+        if let url = URL(string: gifdata.images?.original.url ?? "") {
             gifView.load(url, with: .shared) { [weak self]  _, _,_,_  in
                 // in case of error or not loading image loader will continue dispalying
                 self?.loader.stopAnimating()

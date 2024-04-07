@@ -64,14 +64,25 @@ class MainVC: UIViewController {
     }
     
     func flipAndHideContentView() {
-        UIView.transition(with: collectionView, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-            // flip the view
+        UIView.transition(with: collectionView, duration: 0.5, options: .transitionFlipFromLeft, animations: { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            self.gifArray.removeAll()
+            self.collectionView.reloadData()
+            
         }) { _ in
             // change collection view fo favorites collectin
         }
     }
     
+    @IBAction func removeAllTapped(_ sender: Any) {
+        vm?.removeAllFavoriteGifs()
+    }
+    
     @IBAction func favoriteBtnTapped(_ sender: Any) {
+        loader.startAnimating()
         collectionState = collectionState == .all ? .favorite : .all
         switch collectionState {
         case .all:
@@ -79,14 +90,15 @@ class MainVC: UIViewController {
             searchTextField.isHidden = false
             titleFavovitesLbl.isHidden = true
             flipAndHideContentView()
+            vm?.getGifs(gifType: fetchType, setToZero: true, searchString: searchString)
         case .favorite:
             btnFavorites.setTitle("בחזרה למסך הראשי", for: .normal)
             searchTextField.isHidden = true
             titleFavovitesLbl.isHidden = false
             flipAndHideContentView()
+            vm?.fetchFavorites()
         }
     }
-    
 }
 
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -102,11 +114,12 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
        // make favorite
+        vm?.addToFavorite(gifData: gifArray[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row >= gifArray.count - 15 && fetchMore {
-            vm?.getTrendingGifs(gifType: fetchType, setToZero: false, searchString: searchString)
+            vm?.getGifs(gifType: fetchType, setToZero: false, searchString: searchString)
         }
     }
     
@@ -124,7 +137,7 @@ extension MainVC: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         fetchType = textField.text?.isEmpty ?? true ? .trending : .serach
         searchString = textField.text
-        vm?.getTrendingGifs(gifType: fetchType, setToZero: true, searchString: searchString)
+        vm?.getGifs(gifType: fetchType, setToZero: true, searchString: searchString)
     }
 }
 
