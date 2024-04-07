@@ -76,8 +76,13 @@ class GifCell: UICollectionViewCell {
     }
     
     @IBAction func cellTapped(_ sender: Any) {
-        animationForFavotite()
         if let gif, let state {
+            switch state {
+            case .all:
+                animationForFavotite()
+            case .favorite:
+                break
+            }
             delegate?.cellTapped(gif: gif, state: state)
         }
     }

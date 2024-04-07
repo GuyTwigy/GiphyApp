@@ -10,13 +10,13 @@ import UIKit
 
 class CoreDataManager {
     static let sharedInstance = CoreDataManager()
-
+    
     private init() {}
-
+    
     private var context: NSManagedObjectContext {
         return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
-
+    
     func fetchFavoriteGifs() -> [GifData] {
         let fetchRequest: NSFetchRequest<FavoriteGif> = FavoriteGif.fetchRequest()
         
@@ -30,7 +30,7 @@ class CoreDataManager {
             return []
         }
     }
-
+    
     func addGifToFavorites(_ gifData: GifData) {
         let favoriteGif = FavoriteGif(context: context)
         favoriteGif.id = gifData.id
@@ -41,7 +41,7 @@ class CoreDataManager {
             print("Error saving favorite gif: \(error)")
         }
     }
-
+    
     func removeGifFromFavorites(_ gifData: GifData) {
         let fetchRequest: NSFetchRequest<FavoriteGif> = FavoriteGif.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", gifData.id ?? "")
@@ -59,14 +59,14 @@ class CoreDataManager {
     }
     
     func removeAllFavoriteGifs() {
-           let fetchRequest: NSFetchRequest<NSFetchRequestResult> = FavoriteGif.fetchRequest()
-           let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-           do {
-               try context.execute(deleteRequest)
-               print("Successfully removed all favorite gifs.")
-           } catch {
-               print("Error removing all favorite gifs: \(error)")
-           }
-       }
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = FavoriteGif.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(deleteRequest)
+            print("Successfully removed all favorite gifs.")
+        } catch {
+            print("Error removing all favorite gifs: \(error)")
+        }
+    }
 }
