@@ -22,25 +22,29 @@ struct GifData: Codable {
 }
 
 struct Pagination: Codable {
-    let count: Int
     let totalCount: Int
     
     enum CodingKeys: String, CodingKey {
-        case count
         case totalCount = "total_count"
     }
     
-    init(count: Int, totalCount: Int) {
-        self.count = count
+    init(totalCount: Int) {
         self.totalCount = totalCount
     }
 }
 
 struct Images: Codable {
-    let original: Original
+    let fixedHeightDownsampled: FixedHeightDownsampled
+    
+    enum CodingKeys: String, CodingKey {
+        case fixedHeightDownsampled = "fixed_height_downsampled"
+    }
+    
+    init(fixedHeightDownsampled: FixedHeightDownsampled) {
+        self.fixedHeightDownsampled = fixedHeightDownsampled
+    }
 }
 
-struct Original: Codable {
-    let url: String
+struct FixedHeightDownsampled: Codable {
+    let url: String?
 }
-

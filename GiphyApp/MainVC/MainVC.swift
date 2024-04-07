@@ -110,7 +110,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         switch collectionState {
         case .all:
-            if indexPath.row >= gifArray.count - 15 && fetchMore {
+            if indexPath.row >= gifArray.count - 3 && fetchMore {
                 vm?.getGifs(gifType: fetchType, setToZero: false, searchString: searchString)
             }
         case .favorite:

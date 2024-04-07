@@ -82,16 +82,25 @@ open class ImageSourceController {
 		guard !self.isUpdating else {
 			return
 		}
+        
 		self.isUpdating = true
 		
 		let updateIteration = self.updateIteration
 		let currentFrame = self.currentFrame
 		
-		DispatchQueue.global().async {
-			let image = self.image(at: currentFrame)
+		DispatchQueue.global().async { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            let image = self.image(at: currentFrame)
 			let properties = self.imageSource.properties(at: currentFrame)
 			
-			DispatchQueue.main.async {
+			DispatchQueue.main.async { [weak self] in
+                guard let self else {
+                    return
+                }
+                
 				self.sendWillUpdate()
 				
 				self.currentImage = image
@@ -142,7 +151,11 @@ open class ImageSourceController {
 		
 		let animationStartTime = DisplayLink.currentTime
 		self.displayLink = DisplayLink(preferredFramesPerSecond: self.imageSource.preferredFramesPerSecond) { [weak self] timestamp in
-			guard let self = self else { return }
+            guard let self else {
+                return
+            }
+            
+            
 			let frame = self.imageSource.animationFrame(at: timestamp - animationStartTime)
 			self.currentFrame = frame
 		}
@@ -167,7 +180,11 @@ open class ImageSourceController {
 	}
 	
 	@objc private func didUpdateData(_: Notification) {
-		DispatchQueue.main.async {
+		DispatchQueue.main.async { [weak self] in
+            guard let self else {
+                return
+            }
+            
 			self.updateIteration += 1
 			
 			if self.wantsAnimation, self.imageSource.status == .complete {
