@@ -31,4 +31,14 @@ extension UIViewController {
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func addRefreshControl(to scrollView: UIScrollView, action: Selector) {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: action, for: .valueChanged)
+        scrollView.refreshControl = refreshControl
+    }
+
+    func endRefreshing(scrollView: UIScrollView) {
+        scrollView.refreshControl?.endRefreshing()
+    }
 }

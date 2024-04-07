@@ -34,6 +34,7 @@ class MainVC: UIViewController {
         vm?.delegate = self
         setupCollectionView()
         setupTextField()
+        addRefreshControl(to: collectionView, action: #selector(refreshData))
     }
     
     func setupCollectionView() {
@@ -90,6 +91,15 @@ class MainVC: UIViewController {
             searchTextField.isHidden = true
             titleFavovitesLbl.isHidden = false
             flipAndHideContentView()
+            vm?.fetchFavorites()
+        }
+    }
+    
+    @objc private func refreshData() {
+        switch collectionState {
+        case .all:
+            vm?.getGifs(gifType: fetchType, setToZero: true, searchString: searchString)
+        case .favorite:
             vm?.fetchFavorites()
         }
     }
@@ -182,6 +192,7 @@ extension MainVC: MainVMDelegate {
                     self.noResultsSearchLbl.text = "Favorite Is Empty"
                 }
             }
+            self.endRefreshing(scrollView: self.collectionView)
             self.loader.stopAnimating()
         }
     }
