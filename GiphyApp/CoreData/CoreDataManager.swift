@@ -23,7 +23,7 @@ class CoreDataManager {
         do {
             let favoriteGifs = try context.fetch(fetchRequest)
             return favoriteGifs.map { favoriteGif in
-                return GifData(images: nil, id: favoriteGif.id ?? "", favorite: true)
+                return GifData(images: nil, id: favoriteGif.id ?? "")
             }
         } catch {
             print("Error fetching favorite gifs: \(error)")
