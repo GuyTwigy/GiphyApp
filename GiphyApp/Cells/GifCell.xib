@@ -18,27 +18,55 @@
                 <rect key="frame" x="0.0" y="0.0" width="383" height="246"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYL-eH-xVI" customClass="ImageSourceView" customModule="ImageIOUIKit">
-                        <rect key="frame" x="0.0" y="0.0" width="383" height="246"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYL-eH-xVI" customClass="ImageSourceView" customModule="ImageIOUIKit">
+                        <rect key="frame" x="3" y="3" width="377" height="240"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="LLh-Bx-WZ5">
                         <rect key="frame" x="181.66666666666666" y="113" width="20" height="20"/>
                         <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </activityIndicatorView>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5eD-Ao-RDt">
+                        <rect key="frame" x="95.666666666666671" y="41.666666666666671" width="191.66666666666657" height="188.66666666666663"/>
+                        <color key="tintColor" red="0.76069141819999997" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="5eD-Ao-RDt" secondAttribute="height" multiplier="1:1" id="40N-vn-YBZ"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wd-mY-SgA">
+                        <rect key="frame" x="0.0" y="0.0" width="383" height="246"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title=" "/>
+                        <connections>
+                            <action selector="cellTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="IJw-WX-pDE"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="TYL-eH-xVI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="92H-jD-coK"/>
-                <constraint firstItem="TYL-eH-xVI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="F1O-nr-ejD"/>
+                <constraint firstItem="TYL-eH-xVI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="3" id="92H-jD-coK"/>
+                <constraint firstItem="TYL-eH-xVI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="3" id="F1O-nr-ejD"/>
                 <constraint firstItem="LLh-Bx-WZ5" firstAttribute="centerX" secondItem="TYL-eH-xVI" secondAttribute="centerX" id="K48-mV-8jx"/>
-                <constraint firstAttribute="bottom" secondItem="TYL-eH-xVI" secondAttribute="bottom" id="N4i-O0-Lxv"/>
-                <constraint firstAttribute="trailing" secondItem="TYL-eH-xVI" secondAttribute="trailing" id="Xg9-Wd-SN2"/>
+                <constraint firstAttribute="bottom" secondItem="TYL-eH-xVI" secondAttribute="bottom" constant="3" id="N4i-O0-Lxv"/>
+                <constraint firstItem="5eD-Ao-RDt" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="OJY-8p-vEs"/>
+                <constraint firstAttribute="trailing" secondItem="8wd-mY-SgA" secondAttribute="trailing" id="OYg-2R-AId"/>
+                <constraint firstItem="8wd-mY-SgA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="VKH-3z-csT"/>
+                <constraint firstAttribute="trailing" secondItem="TYL-eH-xVI" secondAttribute="trailing" constant="3" id="Xg9-Wd-SN2"/>
                 <constraint firstItem="LLh-Bx-WZ5" firstAttribute="centerY" secondItem="TYL-eH-xVI" secondAttribute="centerY" id="Ymz-mp-jCq"/>
+                <constraint firstAttribute="bottom" secondItem="8wd-mY-SgA" secondAttribute="bottom" id="eGQ-zg-PlT"/>
+                <constraint firstItem="5eD-Ao-RDt" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.5" id="gru-DL-00S"/>
+                <constraint firstItem="8wd-mY-SgA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="u4p-yU-JIh"/>
+                <constraint firstItem="5eD-Ao-RDt" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="uUf-ir-nKH"/>
             </constraints>
             <size key="customSize" width="383" height="246"/>
             <connections>
+                <outlet property="favoriteImage" destination="5eD-Ao-RDt" id="DPf-v9-CDg"/>
                 <outlet property="gifView" destination="TYL-eH-xVI" id="J16-TJ-iNk"/>
                 <outlet property="loader" destination="LLh-Bx-WZ5" id="3UZ-DC-5Gm"/>
             </connections>
@@ -46,6 +74,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

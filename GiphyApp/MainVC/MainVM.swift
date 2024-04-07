@@ -141,9 +141,6 @@ class MainVM {
     func removeFavorite(gifData: GifData) {
         let gifData = GifData(images: nil, id: gifData.id, favorite: false)
         CoreDataManager.sharedInstance.removeGifFromFavorites(gifData)
-    }
-    
-    func removeAllFavoriteGifs() {
-        CoreDataManager.sharedInstance.removeAllFavoriteGifs()
+        fetchFavorites()
     }
 }

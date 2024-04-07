@@ -75,11 +75,11 @@
 		2F78C648A5E57A320A5A0D2A75B5C281 /* Pods-GiphyApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-GiphyApp-acknowledgements.plist"; sourceTree = "<group>"; };
 		39D345091C257B13A48E28A88DFB7FC4 /* TIFFProperties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TIFFProperties.swift; path = Sources/ImageIOSwift/TIFFProperties.swift; sourceTree = "<group>"; };
 		3A2B43A61DB9CFEF443ED289589B3F06 /* Pods-GiphyApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-GiphyApp"; path = Pods_GiphyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		430A84DE9D115923B114F03455AABDE5 /* ImageIOSwift */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ImageIOSwift; path = ImageIOSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		430A84DE9D115923B114F03455AABDE5 /* ImageIOSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageIOSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44A18176EB8C1BA0F891C09589ABEA5A /* ImageSourceView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageSourceView.swift; path = Sources/ImageIOUIKit/ImageSourceView.swift; sourceTree = "<group>"; };
 		4CDDD4AF2E86A83D3D3E4540A8B1FF17 /* Pods-GiphyApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-GiphyApp.modulemap"; sourceTree = "<group>"; };
 		5FC6D57AE984A69BF46D0774A6B0949D /* ImageIOSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ImageIOSwift-dummy.m"; sourceTree = "<group>"; };
-		67754599716A0E7B8D50C80C4EB884B0 /* ImageIOUIKit */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ImageIOUIKit; path = ImageIOUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67754599716A0E7B8D50C80C4EB884B0 /* ImageIOUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageIOUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		76CD02711A2F5F5E0E8E611F15488EBC /* ImageSourceController+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ImageSourceController+UIKit.swift"; path = "Sources/ImageIOUIKit/ImageSourceController+UIKit.swift"; sourceTree = "<group>"; };
 		80BC3EBF7BF1C6B9D0CD41B228BE7347 /* CGSize+Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGSize+Helpers.swift"; path = "Sources/ImageIOSwift/CGSize+Helpers.swift"; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		9552DFD8F7850459C241F5A00A5B9D9D /* DisplayLink.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DisplayLink.swift; path = Sources/ImageIOSwift/DisplayLink.swift; sourceTree = "<group>"; };
 		96F44741F0B73EF73AB40960FBCF8DA0 /* ImageIOSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ImageIOSwift.debug.xcconfig; sourceTree = "<group>"; };
 		99C659B58C233DEB8A2B4CF1C4CFA99F /* ImageSource+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ImageSource+UIKit.swift"; path = "Sources/ImageIOUIKit/ImageSource+UIKit.swift"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A9BF9F62B60F37B1A5A20F2BA9FEE164 /* Pods-GiphyApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-GiphyApp-umbrella.h"; sourceTree = "<group>"; };
 		B0EE305CDA38629362DA9206CFA6C9EA /* Pods-GiphyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-GiphyApp.release.xcconfig"; sourceTree = "<group>"; };
 		B2054E5588A6F7EC1F8FE24BF998FC95 /* Pods-GiphyApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-GiphyApp-dummy.m"; sourceTree = "<group>"; };
@@ -218,7 +218,6 @@
 				E338AE1DA7E30278EA88B32B0731CBB7 /* UIImageOrientation+Helpers.swift */,
 				727A777D58E8ABA1C8423E5F9409BBDD /* Support Files */,
 			);
-			name = ImageIOUIKit;
 			path = ImageIOUIKit;
 			sourceTree = "<group>";
 		};
@@ -242,15 +241,14 @@
 				D020FFA664BF1339FA153FC553FBEE7D /* Weak.swift */,
 				A905E2C98E079E0C0286BD4962767642 /* Support Files */,
 			);
-			name = ImageIOSwift;
 			path = ImageIOSwift;
 			sourceTree = "<group>";
 		};
 		BA77F5125FEE05ED7CA80BC7F067A5F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				430A84DE9D115923B114F03455AABDE5 /* ImageIOSwift */,
-				67754599716A0E7B8D50C80C4EB884B0 /* ImageIOUIKit */,
+				430A84DE9D115923B114F03455AABDE5 /* ImageIOSwift.framework */,
+				67754599716A0E7B8D50C80C4EB884B0 /* ImageIOUIKit.framework */,
 				3A2B43A61DB9CFEF443ED289589B3F06 /* Pods-GiphyApp */,
 			);
 			name = Products;
@@ -320,7 +318,7 @@
 			);
 			name = ImageIOSwift;
 			productName = ImageIOSwift;
-			productReference = 430A84DE9D115923B114F03455AABDE5 /* ImageIOSwift */;
+			productReference = 430A84DE9D115923B114F03455AABDE5 /* ImageIOSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		940E433D1D877569F5292C0400BFEAD5 /* Pods-GiphyApp */ = {
@@ -359,7 +357,7 @@
 			);
 			name = ImageIOUIKit;
 			productName = ImageIOUIKit;
-			productReference = 67754599716A0E7B8D50C80C4EB884B0 /* ImageIOUIKit */;
+			productReference = 67754599716A0E7B8D50C80C4EB884B0 /* ImageIOUIKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -573,7 +571,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ImageIOUIKit/ImageIOUIKit-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ImageIOUIKit/ImageIOUIKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -608,7 +606,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ImageIOSwift/ImageIOSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ImageIOSwift/ImageIOSwift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -772,7 +770,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ImageIOUIKit/ImageIOUIKit-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ImageIOUIKit/ImageIOUIKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -808,7 +806,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ImageIOSwift/ImageIOSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ImageIOSwift/ImageIOSwift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
