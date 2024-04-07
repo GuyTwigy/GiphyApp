@@ -19,7 +19,6 @@ struct GifByIdResponse: Codable {
 struct GifData: Codable {
     let images: Images?
     let id: String?
-    let favorite: Bool?
 }
 
 struct Pagination: Codable {

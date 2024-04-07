@@ -85,6 +85,7 @@ class MainVC: UIViewController {
             flipAndHideContentView()
             vm?.getGifs(gifType: fetchType, setToZero: true, searchString: searchString)
         case .favorite:
+            searchTextField.resignFirstResponder()
             btnFavorites.setTitle("בחזרה למסך הראשי", for: .normal)
             searchTextField.isHidden = true
             titleFavovitesLbl.isHidden = false
@@ -136,6 +137,16 @@ extension MainVC: UITextFieldDelegate {
 }
 
 extension MainVC: MainVMDelegate {
+    func gifAlreadyAdded() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            self.presentAlert(withTitle: "ג׳יפ זה נמצא ברשימת המועדפים שלך", message: "")
+        }
+    }
+    
     func payoadFetched(gifArr: [GifData], totalCount: Int, removeAll: Bool, error: Error?) {
         DispatchQueue.main.async { [weak self] in
             guard let self else {

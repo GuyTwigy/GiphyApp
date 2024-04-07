@@ -10,6 +10,7 @@ import Combine
 
 protocol MainVMDelegate: AnyObject {
     func payoadFetched(gifArr: [GifData], totalCount: Int, removeAll: Bool, error: Error?)
+    func gifAlreadyAdded()
 }
 
 class MainVM {
@@ -43,7 +44,9 @@ class MainVM {
             urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.trendingEndPoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)"
         case .serach:
             let searchQuery = "&q=\(searchString ?? "")"
-            urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.searchEndpoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)\(searchQuery)"
+            if let encodedQuery = searchQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                urlString = "\(NetworkBuilder.ApiUtils.gifbaseUrl.description)\(NetworkBuilder.EndPoints.searchEndpoint.description)\(NetworkBuilder.ApiUtils.apiKey.description)\(queries)\(encodedQuery)"
+            }
         }
         if let url = URL(string: urlString) {
             let urlRequest = URLRequest(url: url)
@@ -134,12 +137,17 @@ class MainVM {
     }
     
     func addToFavorite(gifData: GifData) {
-        let gifData = GifData(images: nil, id: gifData.id, favorite: true)
-        CoreDataManager.sharedInstance.addGifToFavorites(gifData)
+        let favorites = CoreDataManager.sharedInstance.fetchFavoriteGifs()
+        if favorites.contains(where: { $0.id == gifData.id }) {
+            delegate?.gifAlreadyAdded()
+        } else {
+            let gifData = GifData(images: nil, id: gifData.id)
+            CoreDataManager.sharedInstance.addGifToFavorites(gifData)
+        }
     }
     
     func removeFavorite(gifData: GifData) {
-        let gifData = GifData(images: nil, id: gifData.id, favorite: false)
+        let gifData = GifData(images: nil, id: gifData.id)
         CoreDataManager.sharedInstance.removeGifFromFavorites(gifData)
         fetchFavorites()
     }
