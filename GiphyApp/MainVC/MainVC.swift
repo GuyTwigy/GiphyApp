@@ -64,14 +64,18 @@ class MainVC: UIViewController {
     }
     
     func flipAndHideContentView() {
-        UIView.transition(with: collectionView, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-            // flip the view
-        }) { _ in
-            // change collection view fo favorites collectin
-        }
+        UIView.transition(with: collectionView, duration: 0.5, options: .transitionFlipFromLeft, animations: { [weak self] in
+            guard let self else {
+                return
+            }
+            
+            self.gifArray.removeAll()
+            self.collectionView.reloadData()
+        })
     }
     
     @IBAction func favoriteBtnTapped(_ sender: Any) {
+        loader.startAnimating()
         collectionState = collectionState == .all ? .favorite : .all
         switch collectionState {
         case .all:
@@ -79,14 +83,15 @@ class MainVC: UIViewController {
             searchTextField.isHidden = false
             titleFavovitesLbl.isHidden = true
             flipAndHideContentView()
+            vm?.getGifs(gifType: fetchType, setToZero: true, searchString: searchString)
         case .favorite:
             btnFavorites.setTitle("בחזרה למסך הראשי", for: .normal)
             searchTextField.isHidden = true
             titleFavovitesLbl.isHidden = false
             flipAndHideContentView()
+            vm?.fetchFavorites()
         }
     }
-    
 }
 
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -96,17 +101,19 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCell", for: indexPath) as! GifCell
-        cell.setupContent(gifdata: gifArray[indexPath.row])
+        cell.delegate = self
+        cell.setupContent(gifdata: gifArray[indexPath.row], collectionState: collectionState)
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       // make favorite
-    }
-    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row >= gifArray.count - 15 && fetchMore {
-            vm?.getTrendingGifs(gifType: fetchType, setToZero: false, searchString: searchString)
+        switch collectionState {
+        case .all:
+            if indexPath.row >= gifArray.count - 15 && fetchMore {
+                vm?.getGifs(gifType: fetchType, setToZero: false, searchString: searchString)
+            }
+        case .favorite:
+            break
         }
     }
     
@@ -124,7 +131,7 @@ extension MainVC: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         fetchType = textField.text?.isEmpty ?? true ? .trending : .serach
         searchString = textField.text
-        vm?.getTrendingGifs(gifType: fetchType, setToZero: true, searchString: searchString)
+        vm?.getGifs(gifType: fetchType, setToZero: true, searchString: searchString)
     }
 }
 
@@ -146,16 +153,44 @@ extension MainVC: MainVMDelegate {
                 } else {
                     self.gifArray.append(contentsOf: gifArr)
                     let endIndex = self.gifArray.count - 1
-                    let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
-                    self.collectionView.insertItems(at: indexPaths)
+                    if startIndex <= endIndex {
+                        let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+                        self.collectionView.insertItems(at: indexPaths)
+                    }
                 }
                 
-                self.fetchMore = gifArray.count < totalCount
-                self.noResultsLbl.isHidden = !gifArray.isEmpty
-                self.noResultsSearchLbl.isHidden = !gifArray.isEmpty
-                self.noResultsSearchLbl.text = gifArray.isEmpty ? "'\(searchString ?? "")'" : ""
+                self.fetchMore = self.gifArray.count < totalCount
+                switch self.collectionState {
+                case .all:
+                    self.noResultsLbl.isHidden = !self.gifArray.isEmpty
+                    self.noResultsSearchLbl.isHidden = !self.gifArray.isEmpty
+                    self.noResultsSearchLbl.text = self.gifArray.isEmpty ? "'\(self.searchString ?? "")'" : ""
+                case .favorite:
+                    self.noResultsLbl.isHidden = true
+                    self.noResultsSearchLbl.isHidden = !self.gifArray.isEmpty
+                    self.noResultsSearchLbl.text = "Favorite Is Empty"
+                }
             }
             self.loader.stopAnimating()
         }
+    }
+}
+
+extension MainVC: GifCellDelegate {
+    func cellTapped(gif: GifData, state: MainVM.collectionViewState) {
+        // make favorite
+         switch state {
+         case .all:
+             vm?.addToFavorite(gifData: gif)
+         case .favorite:
+             presentAlertWithAction(withTitle: "האם ברצונך להסיר מרשימת המועדפים?", message: "") { [weak self] in
+                 guard let self else {
+                     return
+                 }
+                 
+                 self.loader.startAnimating()
+                 self.vm?.removeFavorite(gifData: gif)
+             }
+         }
     }
 }

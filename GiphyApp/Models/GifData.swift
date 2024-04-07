@@ -10,12 +10,16 @@ import Foundation
 struct GifResponse: Codable {
     let data: [GifData]
     let pagination: Pagination
-    let favorite: Bool
+}
+
+struct GifByIdResponse: Codable {
+    let data: GifData
 }
 
 struct GifData: Codable {
-    let images: Images
-    let id: String
+    let images: Images?
+    let id: String?
+    let favorite: Bool?
 }
 
 struct Pagination: Codable {
